@@ -8,10 +8,11 @@ import { FirstComponent } from './first/first.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {UserResolverService} from './Service/user-resolver.service';
+import {UserService} from './Service/user.service';
 
 const router: Routes = [
   {path: '', component: FirstComponent},
-  {path: '2', component: UsersComponent, resolve: {allUsers: UserResolverService}}
+  {path: ':id/details', component: UsersComponent, resolve: {xxx: UserResolverService}}
 ];
 
 @NgModule({
@@ -27,7 +28,7 @@ const router: Routes = [
     HttpClientModule,
     RouterModule.forRoot(router)
   ],
-  providers: [],
+  providers: [UserService, AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -29,13 +29,13 @@
 <form [formGroup]="forma">
     <h2>User ID</h2>
   <div>
-    <input #idUser1 [formControl]="idUser">
+    <input [formControl]="idUser">
     <div *ngIf="forma.controls['idUser'].invalid">User ID is not valid</div>
   </div>
   <br>
   <div style="margin-top: 10px">
-    <a routerLink="{{idUser1.value}}"><button (click)="sendForm(forma)" [disabled]="forma.invalid">Send form</button></a>
+    <button (click)="newIdUser(idUser.value)" [disabled]="forma.invalid">Send form</button>
   </div>
 </form>
 <router-outlet></router-outlet>
-<h2>{{idUser1.value}}</h2>
+<h2>{{idUser.value}}</h2>

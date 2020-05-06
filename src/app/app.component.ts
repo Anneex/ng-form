@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DataService} from './Service/data.service';
+import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -8,17 +11,20 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(private dataService: DataService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.forma = new FormGroup({
         idUser: this.idUser,
       }
     );
-    this.idUserInput = this.idUser.value;
   }
-  // state = {
-  //   login: '',
-  //   pass: ''
-  // };
+  forma: FormGroup;
+  idUser: FormControl = new FormControl('', [Validators.required, Validators.pattern('[0-9]{0,}')]);
+
+  newIdUser(value: number) {
+    this.dataService.setState(value);
+    this.router.navigate([value, 'details'], {state: {value}, queryParams: {idOfUser: value}, relativeTo: this.activatedRoute});
+  }
+}
   // saveInput(bodyInput) {
   //   this.state = bodyInput.value;
   // }
@@ -26,11 +32,3 @@ export class AppComponent {
   //   login: '',
   //   password: ''
   // };
-  idUserInput: any[];
-  forma: FormGroup;
-  idUser: FormControl = new FormControl('', [Validators.required, Validators.pattern('[0-9]{0,}')]);
-
-  sendForm(forma: FormGroup) {
-    console.log(this.idUserInput);
-  }
-}
